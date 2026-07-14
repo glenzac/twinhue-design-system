@@ -21,7 +21,8 @@ Sibling repos: [morninghue-theme](../morninghue-theme) · [eveninghue-theme](../
 <script src="js/hue-theme.js"></script>
 ```
 
-Open `docs/demo.html` for the full component gallery.
+Open `docs/demo.html` for the full component gallery, and `docs/shell.html`
+for the canonical app shell every TwinHue app is built on.
 
 ## Files
 
@@ -32,7 +33,8 @@ Open `docs/demo.html` for the full component gallery.
 | `tokens.json` | W3C design tokens, both modes, WCAG-annotated |
 | `docs/demo.html` | Component gallery with live theme toggle |
 | `docs/reference.html` | Light and dark side by side — tokens, all components, charts |
-| `SKILL.md` | Claude Code skill — the app-migration playbook |
+| `docs/shell.html` | Canonical app shell (fixed sidebar) — copy `base.html` structure from here |
+| `SKILL.md` | Claude Code skill — migration playbook + grounding rules |
 
 ## How it themes Bootstrap
 
@@ -58,6 +60,9 @@ No Sass build, no Bootstrap fork — load it after `bootstrap.min.css`.
   (dark mode gets a web-only `#A39C90` because the terminal comment gray fails).
 - Apps **copy** the two files (version stamp on line 1) so they stay
   self-contained; the source repo is the single place to make changes.
+- **One shell** (v1.1): every app uses the fixed-left-sidebar skeleton in
+  `docs/shell.html` — the system also owns layout (spacing scale, radii,
+  sidebar/content dimensions), not just color, so apps read as one brand.
 
 ## Versioning
 

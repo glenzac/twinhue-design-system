@@ -1,5 +1,5 @@
 /*!
- * twinhue-design-system v1.0.0 (2026-07-14)
+ * twinhue-design-system v1.1.0 (2026-07-14)
  * MorningHue (light) + EveningHue (dark) for Bootstrap 5.3+
  * Load AFTER bootstrap.min.css. Dark mode via <html data-bs-theme="dark">.
  * Source of truth: ~/scripts/twinhue-design-system — do not hand-edit app copies.
@@ -70,6 +70,9 @@
   --hue-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
   --hue-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
   --hue-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.10), 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  /* -- Overlay — the ONLY sanctioned translucent surface (modal/sidebar scrim) */
+  --hue-overlay: rgba(38, 35, 32, 0.45);
 }
 
 /* ==========================================================================
@@ -133,6 +136,8 @@
   --hue-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.30), 0 1px 2px rgba(0, 0, 0, 0.24);
   --hue-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.38), 0 1px 4px rgba(0, 0, 0, 0.24);
   --hue-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.28);
+
+  --hue-overlay: rgba(0, 0, 0, 0.60);
 }
 
 /* ==========================================================================
@@ -209,6 +214,27 @@
   --hue-font-body: var(--bs-body-font-family);
   --hue-font-mono: var(--bs-font-monospace);
   --bs-body-font-size: 0.875rem;                /* 14px base, per MorningHue */
+
+  /* -- Structure (mode-independent) — the ONLY spacing/radius scales apps
+        may use; never define a private --space-* / --radius-* layer. ------- */
+  --hue-space-1: 4px;
+  --hue-space-2: 8px;
+  --hue-space-3: 12px;
+  --hue-space-4: 16px;
+  --hue-space-5: 20px;
+  --hue-space-6: 24px;
+  --hue-space-8: 32px;
+  --hue-space-10: 40px;
+  --hue-space-12: 48px;
+
+  --hue-radius-sm: 6px;    /* inputs, sidebar links, chips */
+  --hue-radius-md: 8px;    /* buttons, alerts, log panels */
+  --hue-radius-lg: 10px;   /* cards, modals */
+  --hue-radius-pill: 9999px;
+
+  --hue-sidebar-width: 232px;
+  --hue-content-max: 1440px;   /* content column cap on wide screens */
+  --hue-content-pad: var(--hue-space-6);
 }
 
 /* dark-mode rgb variants that differ from light */
@@ -774,22 +800,36 @@ hr {
   margin-bottom: 0.375rem;
 }
 
-/* KPI stat block */
+/* KPI stat block — THE hero/stat card content. Canonical markup:
+   <div class="card"><div class="card-body hue-stat"> num + label </div></div>
+   Height comes from content only: never h-100-stretch or min-height a stat card. */
+.hue-stat {
+  padding: var(--hue-space-4) var(--hue-space-5); /* wins over .card-body default */
+}
 .hue-stat .hue-stat-num {
   display: block;
   font-family: var(--hue-font-display);
-  font-size: 2.5rem;
-  font-weight: 600;
-  line-height: 1.1;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--hue-text);
   font-variant-numeric: tabular-nums;
 }
 .hue-stat .hue-stat-label {
   display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--hue-text-2);
+  margin-bottom: var(--hue-space-1);
+}
+.hue-stat .hue-stat-sub {
+  display: block;
   font-size: 0.75rem;
   color: var(--hue-text-2);
-  margin-top: 0.25rem;
+  margin-top: var(--hue-space-1);
 }
 .hue-stat-num.text-success { color: var(--hue-success) !important; }
 .hue-stat-num.text-danger  { color: var(--hue-danger) !important; }
@@ -841,4 +881,225 @@ hr {
 .hue-theme-toggle:hover {
   background: var(--hue-hover);
   color: var(--hue-text);
+}
+
+/* ==========================================================================
+   7. APP SHELL — the one TwinHue page skeleton (fixed left sidebar)
+   Every app uses this shell, whatever its size. Canonical markup lives in
+   docs/shell.html; the mobile toggle is wired by hue-theme.js
+   ([data-hue-sidebar-toggle] / .hue-sidebar-overlay).
+   ========================================================================== */
+
+.hue-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* -- Sidebar --------------------------------------------------------------- */
+.hue-sidebar {
+  width: var(--hue-sidebar-width);
+  background: var(--hue-surface);
+  border-right: 1px solid var(--hue-border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1040;
+  transition: transform 0.2s ease;
+}
+
+.hue-sidebar-header {
+  padding: var(--hue-space-5);
+  border-bottom: 1px solid var(--hue-border);
+}
+
+.hue-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--hue-space-3);
+  font-family: var(--hue-font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--hue-text);
+}
+.hue-sidebar-brand:hover {
+  color: var(--hue-text);
+  text-decoration: none;
+}
+.hue-sidebar-brand i, .hue-sidebar-brand svg {
+  color: var(--hue-primary-emphasis);
+  font-size: 1.25rem;
+}
+
+.hue-sidebar-nav {
+  flex: 1;
+  padding: var(--hue-space-4) var(--hue-space-3);
+  overflow-y: auto;
+}
+
+.hue-sidebar-section {
+  margin-bottom: var(--hue-space-6);
+}
+.hue-sidebar-section-title {
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--hue-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0 var(--hue-space-3);
+  margin-bottom: 6px;
+}
+
+.hue-sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.hue-sidebar-menu li {
+  margin-bottom: 2px;
+}
+
+.hue-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: var(--hue-space-3);
+  padding: 9px var(--hue-space-3);
+  border-radius: var(--hue-radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--hue-text-2);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.hue-sidebar-link:hover {
+  background: var(--hue-hover);
+  color: var(--hue-text);
+  text-decoration: none;
+}
+.hue-sidebar-link i, .hue-sidebar-link svg {
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+  color: var(--hue-text-3);
+}
+.hue-sidebar-link:hover i, .hue-sidebar-link:hover svg {
+  color: var(--hue-text-2);
+}
+.hue-sidebar-link.active {
+  background: var(--hue-primary-subtle);
+  color: var(--hue-primary-emphasis);
+  border-left: 2px solid var(--hue-primary-emphasis);
+  padding-left: 10px;
+}
+.hue-sidebar-link.active i, .hue-sidebar-link.active svg {
+  color: var(--hue-primary-emphasis);
+}
+
+.hue-sidebar-footer {
+  padding: var(--hue-space-4) var(--hue-space-5);
+  border-top: 1px solid var(--hue-border);
+}
+
+/* -- Main column ------------------------------------------------------------ */
+.hue-main {
+  flex: 1;
+  /* min-width:0 keeps wide tables scrolling inside .table-responsive instead
+     of dragging the page into horizontal overflow */
+  min-width: 0;
+  margin-left: var(--hue-sidebar-width);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* mobile-only top bar (hamburger + brand + theme toggle) */
+.hue-topbar {
+  display: none;
+  background: var(--hue-surface);
+  border-bottom: 1px solid var(--hue-border);
+  padding: var(--hue-space-3) var(--hue-space-4);
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+}
+
+.hue-content {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  max-width: var(--hue-content-max);
+  padding: var(--hue-content-pad);
+}
+
+.hue-shell footer, .hue-footer {
+  padding: var(--hue-space-4) var(--hue-content-pad);
+  border-top: 1px solid var(--hue-border);
+  color: var(--hue-text-2);
+  font-size: 0.75rem;
+}
+
+/* page header: title left, actions right — first element of every page */
+.hue-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hue-space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--hue-space-6);
+}
+.hue-page-header h1 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin: 0;
+}
+.hue-page-header .hue-page-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--hue-space-2);
+}
+
+/* -- Mobile (<992px): sidebar slides over content behind a scrim ------------- */
+.hue-sidebar-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--hue-border);
+  border-radius: var(--hue-radius-sm);
+  padding: var(--hue-space-2) var(--hue-space-3);
+  color: var(--hue-text-2);
+  cursor: pointer;
+}
+
+.hue-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--hue-overlay);
+  z-index: 1035;
+}
+
+@media (max-width: 991.98px) {
+  .hue-sidebar {
+    transform: translateX(-100%);
+  }
+  .hue-sidebar.show {
+    transform: translateX(0);
+  }
+  .hue-sidebar-overlay.show {
+    display: block;
+  }
+  .hue-main {
+    margin-left: 0;
+  }
+  .hue-topbar {
+    display: flex;
+  }
+  .hue-sidebar-toggle {
+    display: inline-flex;
+  }
+  .hue-content {
+    padding: var(--hue-space-4);
+  }
 }

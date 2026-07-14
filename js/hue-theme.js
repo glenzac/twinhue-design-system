@@ -1,5 +1,5 @@
 /*!
- * twinhue-design-system v1.0.0 (2026-07-14) — theme switcher
+ * twinhue-design-system v1.1.0 (2026-07-14) — theme switcher + shell helpers
  * MorningHue (light) / EveningHue (dark), follows macOS appearance by default.
  *
  * Modes: "auto" (default, follows OS) | "light" | "dark", persisted in
@@ -18,6 +18,9 @@
  *
  * Charts: listen for the "hue-theme-change" event on document and re-read
  * HueTheme.chartColors() / HueTheme.tokens() to restyle.
+ *
+ * App shell: any element with data-hue-sidebar-toggle opens/closes the
+ * .hue-sidebar on mobile (scrim = .hue-sidebar-overlay). No app JS needed.
  */
 (function () {
   "use strict";
@@ -101,6 +104,31 @@
   document.addEventListener("click", function (e) {
     var el = e.target.closest("[data-hue-toggle]");
     if (el) { e.preventDefault(); HueTheme.cycle(); }
+  });
+
+  /* -- App shell: mobile sidebar toggle ---------------------------------- */
+  function setSidebar(open) {
+    var sidebar = document.querySelector(".hue-sidebar");
+    var overlay = document.querySelector(".hue-sidebar-overlay");
+    if (!sidebar) return;
+    sidebar.classList.toggle("show", open);
+    if (overlay) overlay.classList.toggle("show", open);
+  }
+
+  document.addEventListener("click", function (e) {
+    if (e.target.closest("[data-hue-sidebar-toggle]")) {
+      e.preventDefault();
+      var sidebar = document.querySelector(".hue-sidebar");
+      setSidebar(sidebar && !sidebar.classList.contains("show"));
+    } else if (e.target.closest(".hue-sidebar-overlay")) {
+      setSidebar(false);
+    } else if (e.target.closest(".hue-sidebar-link")) {
+      setSidebar(false); /* navigating away — close the drawer */
+    }
+  });
+
+  window.addEventListener("resize", function () {
+    if (window.innerWidth >= 992) setSidebar(false);
   });
 
   if (document.readyState === "loading") {

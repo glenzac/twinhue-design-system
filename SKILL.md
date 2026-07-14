@@ -17,8 +17,50 @@ hand-edit copies inside apps; fix the source, then re-sync.
 ├── tokens.json        # W3C design tokens, both modes
 ├── docs/demo.html     # component gallery — open it to see everything
 ├── docs/reference.html# light vs dark side by side — the acceptance reference
+├── docs/shell.html    # THE canonical app shell — copy base.html structure from here
 └── SKILL.md           # this file
 ```
+
+## Grounding rules — every app is the same brand
+
+These rules exist because past migrations produced apps that each looked like
+"a different custom version of the same theme". They are non-negotiable
+defaults; deviate only if the user explicitly asks.
+
+1. **One shell, always.** Every app — large dashboard or single-purpose tool —
+   uses the fixed left sidebar shell from `docs/shell.html`
+   (`.hue-shell > .hue-sidebar + .hue-main > .hue-topbar + .hue-content + footer`).
+   No top-navbar layouts, no centered-card-only pages, no hand-rolled sidebars.
+   A small tool simply has a short sidebar (brand + 1–2 links + theme toggle).
+   The mobile toggle is built in (`data-hue-sidebar-toggle` + hue-theme.js) —
+   never write sidebar JS in an app.
+2. **No private token layers.** Apps must not define their own `--space-*`,
+   `--radius-*`, `--text-*`, `--color-*`, `--shadow-*`, or alias variables.
+   Use `--hue-space-1…12`, `--hue-radius-sm/md/lg/pill`, `--hue-shadow-*`
+   directly, or Bootstrap utilities. If an app CSS file has a `:root` block,
+   that's a migration bug.
+3. **Spacing standard.** Content padding is `--hue-content-pad` (24px, from
+   the shell — don't re-pad pages). Grid gutters `g-3`; section gap between
+   card rows `mb-4`; inside cards use Bootstrap defaults. Never tighter than
+   12px between a card edge and its content.
+4. **KPI/hero cards** are exactly `.card > .card-body.hue-stat` with
+   `.hue-stat-label` (overline, first) + `.hue-stat-num` (1.75rem) +
+   optional `.hue-stat-sub`. Height comes from content — never `min-height`,
+   never vertical-centering stretch, never pastel per-variant backgrounds.
+   Color only the number (`text-success`/`text-danger`).
+5. **Transparency policy.** The only translucency allowed anywhere:
+   `--hue-shadow-*` and `--hue-overlay` (the modal/drawer scrim). Surfaces,
+   hovers, stripes, and tints are always opaque tokens (`--hue-hover`,
+   `--hue-*-subtle`). Any other `rgba()`/`opacity` on a background is a bug.
+6. **One font stack.** Inter (display/headings/KPI) + Lato (body) +
+   Source Code Pro (mono). Never another family — a serif headline (e.g.
+   Playfair Display) is off-brand.
+7. **Page anatomy.** Every page starts with `.hue-page-header` (h1 title left,
+   `.hue-page-actions` buttons right), then content. One `h1` per page at
+   1.375rem — no display-size hero headings inside apps.
+8. **App CSS budget.** After migration an app's own CSS should be small
+   (target < 200 lines) and contain only page-specific layout. If it restyles
+   a component the system already ships, delete it and use the system class.
 
 ## Migrating an app (the standard procedure)
 
@@ -64,8 +106,12 @@ In `base.html` (order matters):
 
 Before `</body>`: `<script src="{{ url_for('static', filename='js/hue-theme.js') }}"></script>`
 
-Add the toggle to the navbar: `<button class="hue-theme-toggle" data-hue-toggle></button>`
-(it self-labels and cycles Auto → Light → Dark; choice persists in localStorage).
+Then replace the app's body structure with the canonical shell from
+`~/scripts/twinhue-design-system/docs/shell.html` (grounding rule 1): copy its
+`.hue-shell` markup verbatim, swap in the app's brand, nav links, and content
+block. The theme toggle lives in `.hue-sidebar-footer` (and `.hue-topbar` on
+mobile): `<button class="hue-theme-toggle w-100" data-hue-toggle></button>`
+(self-labels, cycles Auto → Light → Dark, persists in localStorage).
 
 ### 4. Purge conflicting styling — this is where uniformity is won or lost
 
@@ -83,11 +129,16 @@ system now owns. Checklist:
   navbar colors, card backgrounds, table stripes…) — `hue.css` owns all of it.
 - **Replace `bg-white`, `text-black`, `bg-light` misuse**: pure white/black are
   banned. Cards are just `.card`; page bg comes from `body`.
-- **Navbars**: prefer a plain `.navbar` with `style="background: var(--hue-surface)"`
-  (or a `bg-body-tertiary` class). Legacy `navbar-dark bg-dark` still renders
-  EveningHue-toned, but converge on the surface navbar.
-- Keep app CSS strictly for **layout** (grid, spacing, page-specific structure).
-  If a rule mentions a color, it probably shouldn't exist.
+- **Delete the old navigation** (top navbar or hand-rolled sidebar) and its CSS
+  and JS — the shell from `docs/shell.html` replaces it entirely.
+- **Delete private token layers**: any `:root { --space-*, --radius-*,
+  --color-*, --text-*, --shadow-*, --transition-* }` block in app CSS goes;
+  rewrite usages onto `--hue-*` tokens (grounding rule 2).
+- **Rewrite KPI/stat/summary cards** onto `.card > .card-body.hue-stat`
+  (grounding rule 4) and delete the app's own `.stat-card`/`.summary-card` CSS.
+- Keep app CSS strictly for **page-specific layout** (grid, page-specific
+  structure), target < 200 lines. If a rule mentions a color or restyles a
+  shipped component, it shouldn't exist.
 
 ### 5. Charts (Chart.js / Plotly / ECharts)
 
@@ -116,6 +167,8 @@ charts use `--hue-chart-1`.
 
 Run the app and check **both modes** (use the toggle) on the main pages:
 
+- Shell matches `docs/shell.html`: fixed sidebar, `.hue-page-header` on every
+  page, KPI cards are `.hue-stat`, mobile drawer opens/closes.
 - No pure-white or default-Bootstrap-blue elements anywhere.
 - Toggle to dark: no light "flash" on reload, no unreadable text, no
   light-colored boxes left behind (those are hard-coded colors you missed).
@@ -150,9 +203,17 @@ Semantics, not hexes — the same token resolves per mode:
 Fonts: `--hue-font-display` (Inter — headings, KPI numbers), `--hue-font-body`
 (Lato), `--hue-font-mono` (Source Code Pro — tables/code). Base size 14px.
 
+Structure (mode-independent): `--hue-space-1…12` (4→48px), `--hue-radius-sm/md/lg/pill`
+(6/8/10px/pill), `--hue-sidebar-width` (232px), `--hue-content-max` (1440px),
+`--hue-content-pad` (24px), `--hue-overlay` (the only sanctioned translucent bg).
+
 ## Extra components (beyond Bootstrap)
 
-- `.hue-stat` + `.hue-stat-num`/`.hue-stat-label` — KPI blocks
+- **App shell**: `.hue-shell` / `.hue-sidebar` (+header/brand/nav/section/
+  section-title/menu/link/footer) / `.hue-sidebar-overlay` / `.hue-main` /
+  `.hue-topbar` / `.hue-content` / `.hue-footer` — see `docs/shell.html`
+- `.hue-page-header` + `.hue-page-actions` — title-left/buttons-right page top
+- `.hue-stat` (on `.card-body`) + `.hue-stat-label`/`.hue-stat-num`/`.hue-stat-sub` — KPI cards
 - `.badge badge-soft-{primary,success,warning,danger,info,neutral}` — preferred
   chip style for table statuses (quieter than solid `text-bg-*`)
 - `.hue-status hue-status-{ok,warn,error}` — status dot + label
@@ -163,7 +224,8 @@ Fonts: `--hue-font-display` (Inter — headings, KPI numbers), `--hue-font-body`
 ## Rules
 
 **DO**
-- Stock Bootstrap markup first; tokens for anything custom; layout-only app CSS.
+- The canonical shell for every app; stock Bootstrap markup first; tokens for
+  anything custom; page-layout-only app CSS.
 - Semantic tokens over palette values (`--hue-danger`, not a red hex).
 - Test every change in both modes before calling it done.
 
@@ -171,6 +233,8 @@ Fonts: `--hue-font-display` (Inter — headings, KPI numbers), `--hue-font-body`
 - Never `#FFFFFF` / `#000000` backgrounds or text — warm neutrals only.
 - Never readable text in `--hue-text-3` — it deliberately fails WCAG.
 - Never new accent colors — teal (light) / blue (dark) is the identity.
+- Never a new layout shell, private token scale, extra font family, or
+  translucent background (see Grounding rules).
 - Never `data-bs-theme` set anywhere except by the head snippet + `hue-theme.js`.
 - Never edit `hue.css`/`hue-theme.js` inside an app — change the source repo,
   bump the version stamp, re-sync every app.
