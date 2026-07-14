@@ -28,7 +28,8 @@ Open `docs/demo.html` for the full component gallery.
 | `css/hue.css` | Tokens for both modes + Bootstrap 5.3 overrides + `hue-*` extras |
 | `js/hue-theme.js` | Auto/light/dark switcher (`window.HueTheme`), chart-color helpers |
 | `tokens.json` | W3C design tokens, both modes, WCAG-annotated |
-| `docs/demo.html` | Component gallery |
+| `docs/demo.html` | Component gallery with live theme toggle |
+| `docs/reference.html` | Light and dark side by side — tokens, all components, charts |
 | `SKILL.md` | Claude Code skill — the app-migration playbook |
 
 ## How it themes Bootstrap

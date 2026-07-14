@@ -16,6 +16,7 @@ hand-edit copies inside apps; fix the source, then re-sync.
 ├── js/hue-theme.js    # auto/light/dark switcher, window.HueTheme, chart helpers
 ├── tokens.json        # W3C design tokens, both modes
 ├── docs/demo.html     # component gallery — open it to see everything
+├── docs/reference.html# light vs dark side by side — the acceptance reference
 └── SKILL.md           # this file
 ```
 
@@ -120,7 +121,8 @@ Run the app and check **both modes** (use the toggle) on the main pages:
   light-colored boxes left behind (those are hard-coded colors you missed).
 - Modals, dropdowns, toasts, and charts follow the theme.
 - Screenshot the dashboard in both modes and eyeball against
-  `~/scripts/hue-design-system/docs/demo.html`.
+  `~/scripts/hue-design-system/docs/reference.html` (light/dark side by side —
+  the acceptance reference for how every component and chart must look).
 
 ## Token quick reference
 
