@@ -1,6 +1,6 @@
 ---
 name: twinhue-design-system
-description: Apply the TwinHue design system (MorningHue light + EveningHue dark) to Bootstrap 5.3 Flask apps. Use when migrating an app to the design system, adding dark mode, fixing theme inconsistencies, styling new pages/components, or choosing chart colors in any of Glen's dashboard apps. Supersedes morninghue-design-system.
+description: Apply the TwinHue design system (MorningHue light + EveningHue dark) to Bootstrap 5.3 Flask apps. Use when migrating an app to the design system, adding dark mode, fixing theme inconsistencies, styling new pages/components, or choosing chart colors in any Flask dashboard app. Supersedes morninghue-design-system.
 ---
 
 # TwinHue Design System (MorningHue light / EveningHue dark)

@@ -215,6 +215,8 @@
 [data-bs-theme="dark"] {
   --bs-body-bg-rgb: 38, 35, 32;
   --bs-body-color-rgb: 215, 208, 197;
+  --bs-link-color-rgb: 147, 178, 224;
+  --bs-link-hover-color-rgb: 169, 196, 233;
   --bs-light: #3a362f;
   --bs-light-rgb: 58, 54, 47;
   --bs-dark: #211e1b;
@@ -224,6 +226,8 @@
 :root {
   --bs-body-bg-rgb: 241, 237, 229;
   --bs-body-color-rgb: 68, 68, 68;
+  --bs-link-color-rgb: 0, 95, 95;
+  --bs-link-hover-color-rgb: 0, 79, 79;
 }
 
 /* ==========================================================================
