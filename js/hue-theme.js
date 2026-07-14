@@ -1,5 +1,5 @@
 /*!
- * hue-design-system v1.0.0 (2026-07-14) — theme switcher
+ * twinhue-design-system v1.0.0 (2026-07-14) — theme switcher
  * MorningHue (light) / EveningHue (dark), follows macOS appearance by default.
  *
  * Modes: "auto" (default, follows OS) | "light" | "dark", persisted in

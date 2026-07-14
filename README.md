@@ -1,4 +1,6 @@
-# hue-design-system
+# TwinHue
+
+**Twin themes, one system** — MorningHue by day, EveningHue by night.
 
 MorningHue (light) + EveningHue (dark) as a drop-in re-skin for **Bootstrap 5.3**
 apps. One CSS file, one JS file — stock Bootstrap markup comes out themed, with

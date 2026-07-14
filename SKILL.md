@@ -1,17 +1,17 @@
 ---
-name: hue-design-system
-description: Apply the Hue design system (MorningHue light + EveningHue dark) to Bootstrap 5.3 Flask apps. Use when migrating an app to the design system, adding dark mode, fixing theme inconsistencies, styling new pages/components, or choosing chart colors in any of Glen's dashboard apps. Supersedes morninghue-design-system.
+name: twinhue-design-system
+description: Apply the TwinHue design system (MorningHue light + EveningHue dark) to Bootstrap 5.3 Flask apps. Use when migrating an app to the design system, adding dark mode, fixing theme inconsistencies, styling new pages/components, or choosing chart colors in any of Glen's dashboard apps. Supersedes morninghue-design-system.
 ---
 
-# Hue Design System (MorningHue light / EveningHue dark)
+# TwinHue Design System (MorningHue light / EveningHue dark)
 
 One CSS file that re-skins stock Bootstrap 5.3 into MorningHue (light) and
 EveningHue (dark), plus a theme switcher that follows macOS appearance with a
-manual override. **Source of truth: `~/scripts/hue-design-system`** — never
+manual override. **Source of truth: `~/scripts/twinhue-design-system`** — never
 hand-edit copies inside apps; fix the source, then re-sync.
 
 ```
-~/scripts/hue-design-system/
+~/scripts/twinhue-design-system/
 ├── css/hue.css        # tokens (both modes) + Bootstrap overrides + hue-* extras
 ├── js/hue-theme.js    # auto/light/dark switcher, window.HueTheme, chart helpers
 ├── tokens.json        # W3C design tokens, both modes
@@ -32,11 +32,11 @@ hand-edit copies inside apps; fix the source, then re-sync.
 Copy (never symlink — apps must stay self-contained):
 
 ```bash
-cp ~/scripts/hue-design-system/css/hue.css   <app>/app/static/css/hue.css
-cp ~/scripts/hue-design-system/js/hue-theme.js <app>/app/static/js/hue-theme.js
+cp ~/scripts/twinhue-design-system/css/hue.css   <app>/app/static/css/hue.css
+cp ~/scripts/twinhue-design-system/js/hue-theme.js <app>/app/static/js/hue-theme.js
 ```
 
-The version stamp is the first line of each file (`hue-design-system vX.Y.Z`).
+The version stamp is the first line of each file (`twinhue-design-system vX.Y.Z`).
 When asked to "update the design system" in an app, diff the stamp against the
 source and re-copy.
 
@@ -121,7 +121,7 @@ Run the app and check **both modes** (use the toggle) on the main pages:
   light-colored boxes left behind (those are hard-coded colors you missed).
 - Modals, dropdowns, toasts, and charts follow the theme.
 - Screenshot the dashboard in both modes and eyeball against
-  `~/scripts/hue-design-system/docs/reference.html` (light/dark side by side —
+  `~/scripts/twinhue-design-system/docs/reference.html` (light/dark side by side —
   the acceptance reference for how every component and chart must look).
 
 ## Token quick reference
