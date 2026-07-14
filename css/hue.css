@@ -1,0 +1,840 @@
+/*!
+ * hue-design-system v1.0.0 (2026-07-14)
+ * MorningHue (light) + EveningHue (dark) for Bootstrap 5.3+
+ * Load AFTER bootstrap.min.css. Dark mode via <html data-bs-theme="dark">.
+ * Source of truth: ~/scripts/hue-design-system — do not hand-edit app copies.
+ */
+
+/* ==========================================================================
+   1. TOKENS — MorningHue (light)
+   All contrast ratios WCAG-verified against #F1EDE5 / #E8E4DC.
+   ========================================================================== */
+
+:root,
+[data-bs-theme="light"] {
+  color-scheme: light;
+
+  /* -- Hue palette ------------------------------------------------------- */
+  --hue-bg: #f1ede5;            /* page background */
+  --hue-surface: #e8e4dc;       /* card, panel, sidebar */
+  --hue-hover: #e4ded6;         /* hover state, active row */
+  --hue-widget: #e4e4e4;        /* popup, tooltip, modal */
+  --hue-border: #d0d0d0;        /* border, divider */
+  --hue-text: #444444;          /* body text — 8.34:1 AAA */
+  --hue-text-2: #6b6560;        /* secondary text — 4.52:1 AA */
+  --hue-text-3: #949494;        /* DECORATIVE ONLY — fails WCAG */
+  --hue-on-accent: #eeeeee;     /* text on accent/dark backgrounds */
+
+  --hue-primary: #005f5f;       /* Sea Teal — primary interactive, 6.42:1 AA */
+  --hue-primary-hover: #004f4f;
+  --hue-primary-active: #004343;
+  --hue-primary-rgb: 0, 95, 95;
+  --hue-primary-subtle: #d0eaea;
+  --hue-primary-emphasis: #005f5f; /* primary as TEXT on bg/surface */
+  --hue-link: #005f5f;
+  --hue-link-hover: #004f4f;
+  --hue-accent-2: #005f87;      /* Dark Teal — secondary accent, 6.02:1 AA */
+  --hue-focus-ring: rgba(0, 95, 95, 0.25);
+  --hue-selection: #afd7ff;
+
+  --hue-success: #005f00;       /* 6.82:1 AA */
+  --hue-success-hover: #004f00;
+  --hue-success-rgb: 0, 95, 0;
+  --hue-success-subtle: #d0f0d0;
+  --hue-warning: #875f00;       /* 4.90:1 AA */
+  --hue-warning-hover: #6f4e00;
+  --hue-warning-rgb: 135, 95, 0;
+  --hue-warning-subtle: #fdecc8;
+  --hue-danger: #af0000;        /* 6.37:1 AA */
+  --hue-danger-hover: #8f0000;
+  --hue-danger-rgb: 175, 0, 0;
+  --hue-danger-subtle: #ffd7d7;
+  --hue-info: #005f87;          /* 6.02:1 AA */
+  --hue-info-hover: #004f70;
+  --hue-info-rgb: 0, 95, 135;
+  --hue-info-subtle: #d3e8f2;
+  --hue-on-semantic: #ffffff;   /* text on semantic solid buttons/badges */
+
+  /* -- Charts (categorical, in draw order) ------------------------------- */
+  --hue-chart-1: #005f87;
+  --hue-chart-2: #005f00;
+  --hue-chart-3: #875f00;
+  --hue-chart-4: #870087;
+  --hue-chart-5: #5f00d7;
+  --hue-chart-6: #af0000;
+  --hue-chart-7: #005f5f;
+  --hue-chart-8: #949494;
+  --hue-chart-grid: #ddd8d0;    /* gridlines — quieter than --hue-border */
+
+  /* -- Elevation ---------------------------------------------------------- */
+  --hue-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --hue-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --hue-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.10), 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   2. TOKENS — EveningHue (dark)
+   All contrast ratios WCAG-verified against #262320 / #2E2B27.
+   ========================================================================== */
+
+[data-bs-theme="dark"] {
+  color-scheme: dark;
+
+  --hue-bg: #262320;            /* warm dark charcoal */
+  --hue-surface: #2e2b27;
+  --hue-hover: #33302b;
+  --hue-widget: #3a362f;
+  --hue-border: #3a362f;
+  --hue-text: #d7d0c5;          /* 10.21:1 AAA */
+  --hue-text-2: #a39c90;        /* 5.74:1 AA — web-only token */
+  --hue-text-3: #5c564e;        /* DECORATIVE ONLY — fails WCAG */
+  --hue-on-accent: #ede7dc;
+
+  --hue-primary: #005faf;       /* EveningHue UI accent — on-accent text 5.24:1 AA */
+  --hue-primary-hover: #1b6fbd;
+  --hue-primary-active: #2e7cc7;
+  --hue-primary-rgb: 0, 95, 175;
+  --hue-primary-subtle: #1f3145;
+  --hue-primary-emphasis: #93b2e0; /* #005faf is a fill, not a text color on dark */
+  --hue-link: #93b2e0;          /* Steel Blue — 7.21:1 AAA */
+  --hue-link-hover: #a9c4e9;
+  --hue-accent-2: #8fb3f2;      /* Soft Blue */
+  --hue-focus-ring: rgba(147, 178, 224, 0.35);
+  --hue-selection: #3a4d68;
+
+  --hue-success: #93c27e;       /* 7.63:1 AAA; dark text on solid 7.63:1 */
+  --hue-success-hover: #a3cd91;
+  --hue-success-rgb: 147, 194, 126;
+  --hue-success-subtle: #2c3626;
+  --hue-warning: #d9a854;       /* 7.20:1 AAA */
+  --hue-warning-hover: #e0b56d;
+  --hue-warning-rgb: 217, 168, 84;
+  --hue-warning-subtle: #3d3421;
+  --hue-danger: #ef8073;        /* 5.96:1 AA */
+  --hue-danger-hover: #f29489;
+  --hue-danger-rgb: 239, 128, 115;
+  --hue-danger-subtle: #432b27;
+  --hue-info: #7fc0d8;          /* 7.77:1 AAA */
+  --hue-info-hover: #94cbdf;
+  --hue-info-rgb: 127, 192, 216;
+  --hue-info-subtle: #24343a;
+  --hue-on-semantic: #262320;   /* dark text on pastel semantic solids */
+
+  --hue-chart-1: #8fb3f2;
+  --hue-chart-2: #72c5b4;
+  --hue-chart-3: #d9a854;
+  --hue-chart-4: #e58fb0;
+  --hue-chart-5: #cfa0f0;
+  --hue-chart-6: #ef8073;
+  --hue-chart-7: #7fc0d8;
+  --hue-chart-8: #93c27e;
+  --hue-chart-grid: #33302b;
+
+  --hue-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.30), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --hue-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.38), 0 1px 4px rgba(0, 0, 0, 0.24);
+  --hue-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.28);
+}
+
+/* ==========================================================================
+   3. BOOTSTRAP ROOT VARIABLE REMAP (both modes — resolves via --hue-*)
+   ========================================================================== */
+
+:root,
+[data-bs-theme="light"],
+[data-bs-theme="dark"] {
+  /* body & text */
+  --bs-body-bg: var(--hue-bg);
+  --bs-body-color: var(--hue-text);
+  --bs-emphasis-color: var(--hue-text);
+  --bs-secondary-color: var(--hue-text-2);      /* .text-secondary, muted text */
+  --bs-secondary-bg: var(--hue-surface);        /* .bg-secondary-subtle contexts */
+  --bs-tertiary-color: var(--hue-text-2);
+  --bs-tertiary-bg: var(--hue-hover);
+  --bs-heading-color: var(--hue-text);
+  --bs-border-color: var(--hue-border);
+  --bs-border-color-translucent: var(--hue-border);
+
+  /* links */
+  --bs-link-color: var(--hue-link);
+  --bs-link-hover-color: var(--hue-link-hover);
+  --bs-code-color: var(--hue-accent-2);
+  --bs-highlight-bg: var(--hue-selection);
+
+  /* theme colors (drive .bg-*, .text-bg-*, .border-*, badges) */
+  --bs-primary: var(--hue-primary);
+  --bs-primary-rgb: var(--hue-primary-rgb);
+  --bs-primary-text-emphasis: var(--hue-primary-emphasis);
+  --bs-primary-bg-subtle: var(--hue-primary-subtle);
+  --bs-primary-border-subtle: color-mix(in srgb, var(--hue-primary) 40%, var(--hue-bg));
+  --bs-secondary: var(--hue-text-2);
+  --bs-secondary-text-emphasis: var(--hue-text-2);
+  --bs-secondary-bg-subtle: var(--hue-hover);
+  --bs-secondary-border-subtle: var(--hue-border);
+  --bs-success: var(--hue-success);
+  --bs-success-rgb: var(--hue-success-rgb);
+  --bs-success-text-emphasis: var(--hue-success);
+  --bs-success-bg-subtle: var(--hue-success-subtle);
+  --bs-success-border-subtle: color-mix(in srgb, var(--hue-success) 40%, var(--hue-bg));
+  --bs-danger: var(--hue-danger);
+  --bs-danger-rgb: var(--hue-danger-rgb);
+  --bs-danger-text-emphasis: var(--hue-danger);
+  --bs-danger-bg-subtle: var(--hue-danger-subtle);
+  --bs-danger-border-subtle: color-mix(in srgb, var(--hue-danger) 40%, var(--hue-bg));
+  --bs-warning: var(--hue-warning);
+  --bs-warning-rgb: var(--hue-warning-rgb);
+  --bs-warning-text-emphasis: var(--hue-warning);
+  --bs-warning-bg-subtle: var(--hue-warning-subtle);
+  --bs-warning-border-subtle: color-mix(in srgb, var(--hue-warning) 40%, var(--hue-bg));
+  --bs-info: var(--hue-info);
+  --bs-info-rgb: var(--hue-info-rgb);
+  --bs-info-text-emphasis: var(--hue-info);
+  --bs-info-bg-subtle: var(--hue-info-subtle);
+  --bs-info-border-subtle: color-mix(in srgb, var(--hue-info) 40%, var(--hue-bg));
+  --bs-light: var(--hue-surface);
+  --bs-light-rgb: 232, 228, 220;
+  --bs-dark: #2e2b27;
+  --bs-dark-rgb: 46, 43, 39;
+
+  /* focus & validation */
+  --bs-focus-ring-color: var(--hue-focus-ring);
+  --bs-form-valid-color: var(--hue-success);
+  --bs-form-valid-border-color: var(--hue-success);
+  --bs-form-invalid-color: var(--hue-danger);
+  --bs-form-invalid-border-color: var(--hue-danger);
+
+  /* typography */
+  --bs-body-font-family: 'Lato', system-ui, -apple-system, sans-serif;
+  --bs-font-monospace: 'Source Code Pro', 'Fira Code', 'Consolas', monospace;
+  --hue-font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --hue-font-body: var(--bs-body-font-family);
+  --hue-font-mono: var(--bs-font-monospace);
+  --bs-body-font-size: 0.875rem;                /* 14px base, per MorningHue */
+}
+
+/* dark-mode rgb variants that differ from light */
+[data-bs-theme="dark"] {
+  --bs-body-bg-rgb: 38, 35, 32;
+  --bs-body-color-rgb: 215, 208, 197;
+  --bs-light: #3a362f;
+  --bs-light-rgb: 58, 54, 47;
+  --bs-dark: #211e1b;
+  --bs-dark-rgb: 33, 30, 27;
+}
+[data-bs-theme="light"],
+:root {
+  --bs-body-bg-rgb: 241, 237, 229;
+  --bs-body-color-rgb: 68, 68, 68;
+}
+
+/* ==========================================================================
+   4. BASE ELEMENT STYLING
+   ========================================================================== */
+
+body {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+  font-family: var(--hue-font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: var(--hue-selection);
+  color: var(--hue-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--hue-primary);
+  outline-offset: 2px;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+code, kbd, pre, samp {
+  font-family: var(--hue-font-mono);
+}
+
+/* thin warm scrollbars (WebKit) */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--hue-border);
+  border-radius: 5px;
+  border: 2px solid var(--hue-bg);
+}
+
+/* ==========================================================================
+   5. BOOTSTRAP COMPONENT OVERRIDES
+   Bootstrap bakes hex values into per-component vars at compile time,
+   so each variant is re-pointed at the hue tokens (works in both modes).
+   ========================================================================== */
+
+/* -- Buttons --------------------------------------------------------------- */
+.btn {
+  --bs-btn-font-family: var(--hue-font-body);
+  --bs-btn-font-weight: 600;
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem var(--hue-focus-ring);
+}
+
+.btn-primary {
+  --bs-btn-color: var(--hue-on-accent);
+  --bs-btn-bg: var(--hue-primary);
+  --bs-btn-border-color: var(--hue-primary);
+  --bs-btn-hover-color: var(--hue-on-accent);
+  --bs-btn-hover-bg: var(--hue-primary-hover);
+  --bs-btn-hover-border-color: var(--hue-primary-hover);
+  --bs-btn-active-color: var(--hue-on-accent);
+  --bs-btn-active-bg: var(--hue-primary-active);
+  --bs-btn-active-border-color: var(--hue-primary-active);
+  --bs-btn-disabled-color: var(--hue-on-accent);
+  --bs-btn-disabled-bg: var(--hue-primary);
+  --bs-btn-disabled-border-color: var(--hue-primary);
+}
+
+/* Secondary = quiet neutral (surface + border), the MorningHue cancel button */
+.btn-secondary {
+  --bs-btn-color: var(--hue-text);
+  --bs-btn-bg: var(--hue-hover);
+  --bs-btn-border-color: var(--hue-border);
+  --bs-btn-hover-color: var(--hue-text);
+  --bs-btn-hover-bg: var(--hue-widget);
+  --bs-btn-hover-border-color: var(--hue-text-3);
+  --bs-btn-active-color: var(--hue-text);
+  --bs-btn-active-bg: var(--hue-widget);
+  --bs-btn-active-border-color: var(--hue-text-3);
+  --bs-btn-disabled-color: var(--hue-text-2);
+  --bs-btn-disabled-bg: var(--hue-hover);
+  --bs-btn-disabled-border-color: var(--hue-border);
+}
+
+.btn-success {
+  --bs-btn-color: var(--hue-on-semantic);
+  --bs-btn-bg: var(--hue-success);
+  --bs-btn-border-color: var(--hue-success);
+  --bs-btn-hover-color: var(--hue-on-semantic);
+  --bs-btn-hover-bg: var(--hue-success-hover);
+  --bs-btn-hover-border-color: var(--hue-success-hover);
+  --bs-btn-active-color: var(--hue-on-semantic);
+  --bs-btn-active-bg: var(--hue-success-hover);
+  --bs-btn-active-border-color: var(--hue-success-hover);
+  --bs-btn-disabled-color: var(--hue-on-semantic);
+  --bs-btn-disabled-bg: var(--hue-success);
+  --bs-btn-disabled-border-color: var(--hue-success);
+}
+
+.btn-danger {
+  --bs-btn-color: var(--hue-on-semantic);
+  --bs-btn-bg: var(--hue-danger);
+  --bs-btn-border-color: var(--hue-danger);
+  --bs-btn-hover-color: var(--hue-on-semantic);
+  --bs-btn-hover-bg: var(--hue-danger-hover);
+  --bs-btn-hover-border-color: var(--hue-danger-hover);
+  --bs-btn-active-color: var(--hue-on-semantic);
+  --bs-btn-active-bg: var(--hue-danger-hover);
+  --bs-btn-active-border-color: var(--hue-danger-hover);
+  --bs-btn-disabled-color: var(--hue-on-semantic);
+  --bs-btn-disabled-bg: var(--hue-danger);
+  --bs-btn-disabled-border-color: var(--hue-danger);
+}
+
+.btn-warning {
+  --bs-btn-color: var(--hue-on-semantic);
+  --bs-btn-bg: var(--hue-warning);
+  --bs-btn-border-color: var(--hue-warning);
+  --bs-btn-hover-color: var(--hue-on-semantic);
+  --bs-btn-hover-bg: var(--hue-warning-hover);
+  --bs-btn-hover-border-color: var(--hue-warning-hover);
+  --bs-btn-active-color: var(--hue-on-semantic);
+  --bs-btn-active-bg: var(--hue-warning-hover);
+  --bs-btn-active-border-color: var(--hue-warning-hover);
+  --bs-btn-disabled-color: var(--hue-on-semantic);
+  --bs-btn-disabled-bg: var(--hue-warning);
+  --bs-btn-disabled-border-color: var(--hue-warning);
+}
+
+.btn-info {
+  --bs-btn-color: var(--hue-on-semantic);
+  --bs-btn-bg: var(--hue-info);
+  --bs-btn-border-color: var(--hue-info);
+  --bs-btn-hover-color: var(--hue-on-semantic);
+  --bs-btn-hover-bg: var(--hue-info-hover);
+  --bs-btn-hover-border-color: var(--hue-info-hover);
+  --bs-btn-active-color: var(--hue-on-semantic);
+  --bs-btn-active-bg: var(--hue-info-hover);
+  --bs-btn-active-border-color: var(--hue-info-hover);
+  --bs-btn-disabled-color: var(--hue-on-semantic);
+  --bs-btn-disabled-bg: var(--hue-info);
+  --bs-btn-disabled-border-color: var(--hue-info);
+}
+
+.btn-light {
+  --bs-btn-color: var(--hue-text);
+  --bs-btn-bg: var(--hue-surface);
+  --bs-btn-border-color: var(--hue-surface);
+  --bs-btn-hover-color: var(--hue-text);
+  --bs-btn-hover-bg: var(--hue-hover);
+  --bs-btn-hover-border-color: var(--hue-hover);
+  --bs-btn-active-color: var(--hue-text);
+  --bs-btn-active-bg: var(--hue-hover);
+  --bs-btn-active-border-color: var(--hue-hover);
+}
+
+.btn-dark {
+  --bs-btn-color: #ede7dc;
+  --bs-btn-bg: #2e2b27;
+  --bs-btn-border-color: #2e2b27;
+  --bs-btn-hover-color: #ede7dc;
+  --bs-btn-hover-bg: #3a362f;
+  --bs-btn-hover-border-color: #3a362f;
+  --bs-btn-active-color: #ede7dc;
+  --bs-btn-active-bg: #3a362f;
+  --bs-btn-active-border-color: #3a362f;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--hue-primary-emphasis);
+  --bs-btn-border-color: var(--hue-primary-emphasis);
+  --bs-btn-hover-color: var(--hue-on-accent);
+  --bs-btn-hover-bg: var(--hue-primary);
+  --bs-btn-hover-border-color: var(--hue-primary);
+  --bs-btn-active-color: var(--hue-on-accent);
+  --bs-btn-active-bg: var(--hue-primary);
+  --bs-btn-active-border-color: var(--hue-primary);
+  --bs-btn-disabled-color: var(--hue-primary-emphasis);
+  --bs-btn-disabled-border-color: var(--hue-primary-emphasis);
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: var(--hue-text-2);
+  --bs-btn-border-color: var(--hue-border);
+  --bs-btn-hover-color: var(--hue-text);
+  --bs-btn-hover-bg: var(--hue-hover);
+  --bs-btn-hover-border-color: var(--hue-border);
+  --bs-btn-active-color: var(--hue-text);
+  --bs-btn-active-bg: var(--hue-hover);
+  --bs-btn-active-border-color: var(--hue-border);
+  --bs-btn-disabled-color: var(--hue-text-2);
+  --bs-btn-disabled-border-color: var(--hue-border);
+}
+
+.btn-outline-success {
+  --bs-btn-color: var(--hue-success);
+  --bs-btn-border-color: var(--hue-success);
+  --bs-btn-hover-color: var(--hue-on-semantic);
+  --bs-btn-hover-bg: var(--hue-success);
+  --bs-btn-hover-border-color: var(--hue-success);
+  --bs-btn-active-color: var(--hue-on-semantic);
+  --bs-btn-active-bg: var(--hue-success);
+  --bs-btn-active-border-color: var(--hue-success);
+  --bs-btn-disabled-color: var(--hue-success);
+  --bs-btn-disabled-border-color: var(--hue-success);
+}
+
+.btn-outline-danger {
+  --bs-btn-color: var(--hue-danger);
+  --bs-btn-border-color: var(--hue-danger);
+  --bs-btn-hover-color: var(--hue-on-semantic);
+  --bs-btn-hover-bg: var(--hue-danger);
+  --bs-btn-hover-border-color: var(--hue-danger);
+  --bs-btn-active-color: var(--hue-on-semantic);
+  --bs-btn-active-bg: var(--hue-danger);
+  --bs-btn-active-border-color: var(--hue-danger);
+  --bs-btn-disabled-color: var(--hue-danger);
+  --bs-btn-disabled-border-color: var(--hue-danger);
+}
+
+.btn-outline-warning {
+  --bs-btn-color: var(--hue-warning);
+  --bs-btn-border-color: var(--hue-warning);
+  --bs-btn-hover-color: var(--hue-on-semantic);
+  --bs-btn-hover-bg: var(--hue-warning);
+  --bs-btn-hover-border-color: var(--hue-warning);
+  --bs-btn-active-color: var(--hue-on-semantic);
+  --bs-btn-active-bg: var(--hue-warning);
+  --bs-btn-active-border-color: var(--hue-warning);
+  --bs-btn-disabled-color: var(--hue-warning);
+  --bs-btn-disabled-border-color: var(--hue-warning);
+}
+
+.btn-outline-info {
+  --bs-btn-color: var(--hue-info);
+  --bs-btn-border-color: var(--hue-info);
+  --bs-btn-hover-color: var(--hue-on-semantic);
+  --bs-btn-hover-bg: var(--hue-info);
+  --bs-btn-hover-border-color: var(--hue-info);
+  --bs-btn-active-color: var(--hue-on-semantic);
+  --bs-btn-active-bg: var(--hue-info);
+  --bs-btn-active-border-color: var(--hue-info);
+  --bs-btn-disabled-color: var(--hue-info);
+  --bs-btn-disabled-border-color: var(--hue-info);
+}
+
+.btn-link {
+  --bs-btn-color: var(--hue-link);
+  --bs-btn-hover-color: var(--hue-link-hover);
+  --bs-btn-active-color: var(--hue-link-hover);
+}
+
+/* -- Cards ------------------------------------------------------------------ */
+.card {
+  --bs-card-bg: var(--hue-surface);
+  --bs-card-border-color: var(--hue-border);
+  --bs-card-cap-bg: transparent;
+  --bs-card-border-radius: 10px;
+  --bs-card-inner-border-radius: 9px;
+  box-shadow: var(--hue-shadow-sm);
+}
+.card-header {
+  border-bottom-color: var(--hue-border);
+}
+.card-footer {
+  border-top-color: var(--hue-border);
+}
+
+/* -- Navbar ------------------------------------------------------------------ */
+.navbar {
+  --bs-navbar-color: var(--hue-text-2);
+  --bs-navbar-hover-color: var(--hue-text);
+  --bs-navbar-active-color: var(--hue-primary-emphasis);
+  --bs-navbar-brand-color: var(--hue-text);
+  --bs-navbar-brand-hover-color: var(--hue-primary-emphasis);
+  border-bottom: 1px solid var(--hue-border);
+}
+.navbar .navbar-brand {
+  font-family: var(--hue-font-display);
+  font-weight: 600;
+}
+/* legacy navbar-dark / bg-dark combos become EveningHue-toned in both modes */
+.navbar-dark, .navbar[data-bs-theme="dark"] {
+  --bs-navbar-color: #a39c90;
+  --bs-navbar-hover-color: #d7d0c5;
+  --bs-navbar-active-color: #93b2e0;
+  --bs-navbar-brand-color: #ede7dc;
+  --bs-navbar-brand-hover-color: #93b2e0;
+}
+
+/* -- Nav tabs / pills --------------------------------------------------------- */
+.nav {
+  --bs-nav-link-color: var(--hue-link);
+  --bs-nav-link-hover-color: var(--hue-link-hover);
+}
+.nav-tabs {
+  --bs-nav-tabs-border-color: var(--hue-border);
+  --bs-nav-tabs-link-hover-border-color: var(--hue-hover) var(--hue-hover) var(--hue-border);
+  --bs-nav-tabs-link-active-color: var(--hue-text);
+  --bs-nav-tabs-link-active-bg: var(--hue-surface);
+  --bs-nav-tabs-link-active-border-color: var(--hue-border) var(--hue-border) var(--hue-surface);
+}
+.nav-pills {
+  --bs-nav-pills-link-active-color: var(--hue-on-accent);
+  --bs-nav-pills-link-active-bg: var(--hue-primary);
+}
+
+/* -- Dropdowns ----------------------------------------------------------------- */
+.dropdown-menu {
+  --bs-dropdown-bg: var(--hue-widget);
+  --bs-dropdown-color: var(--hue-text);
+  --bs-dropdown-border-color: var(--hue-border);
+  --bs-dropdown-link-color: var(--hue-text);
+  --bs-dropdown-link-hover-color: var(--hue-text);
+  --bs-dropdown-link-hover-bg: var(--hue-hover);
+  --bs-dropdown-link-active-color: var(--hue-on-accent);
+  --bs-dropdown-link-active-bg: var(--hue-primary);
+  --bs-dropdown-divider-bg: var(--hue-border);
+  box-shadow: var(--hue-shadow-md);
+}
+
+/* -- Forms ------------------------------------------------------------------------ */
+.form-control, .form-select {
+  background-color: var(--hue-bg);
+  border-color: var(--hue-border);
+  color: var(--hue-text);
+}
+.form-control:focus, .form-select:focus {
+  background-color: var(--hue-bg);
+  border-color: var(--hue-primary);
+  color: var(--hue-text);
+  box-shadow: 0 0 0 0.25rem var(--hue-focus-ring);
+}
+.form-control::placeholder {
+  color: var(--hue-text-3);
+}
+.form-check-input {
+  background-color: var(--hue-bg);
+  border-color: var(--hue-border);
+}
+.form-check-input:checked {
+  background-color: var(--hue-primary);
+  border-color: var(--hue-primary);
+}
+.form-check-input:focus {
+  border-color: var(--hue-primary);
+  box-shadow: 0 0 0 0.25rem var(--hue-focus-ring);
+}
+.form-range::-webkit-slider-thumb {
+  background-color: var(--hue-primary);
+}
+.form-range::-moz-range-thumb {
+  background-color: var(--hue-primary);
+}
+.input-group-text {
+  background-color: var(--hue-hover);
+  border-color: var(--hue-border);
+  color: var(--hue-text-2);
+}
+.form-label {
+  color: var(--hue-text);
+  font-weight: 600;
+  font-size: 0.8125rem;
+}
+.form-text {
+  color: var(--hue-text-2);
+}
+
+/* -- Tables --------------------------------------------------------------------------- */
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--hue-text);
+  --bs-table-border-color: var(--hue-border);
+  --bs-table-striped-bg: rgba(var(--bs-body-color-rgb), 0.03);
+  --bs-table-striped-color: var(--hue-text);
+  --bs-table-hover-bg: var(--hue-hover);
+  --bs-table-hover-color: var(--hue-text);
+  font-variant-numeric: tabular-nums;
+}
+.table thead th {
+  font-family: var(--hue-font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--hue-text-2);
+  border-bottom: 2px solid var(--hue-border);
+}
+
+/* -- Pagination ------------------------------------------------------------------------- */
+.pagination {
+  --bs-pagination-color: var(--hue-link);
+  --bs-pagination-bg: var(--hue-surface);
+  --bs-pagination-border-color: var(--hue-border);
+  --bs-pagination-hover-color: var(--hue-link-hover);
+  --bs-pagination-hover-bg: var(--hue-hover);
+  --bs-pagination-hover-border-color: var(--hue-border);
+  --bs-pagination-focus-color: var(--hue-link-hover);
+  --bs-pagination-focus-bg: var(--hue-hover);
+  --bs-pagination-focus-box-shadow: 0 0 0 0.25rem var(--hue-focus-ring);
+  --bs-pagination-active-color: var(--hue-on-accent);
+  --bs-pagination-active-bg: var(--hue-primary);
+  --bs-pagination-active-border-color: var(--hue-primary);
+  --bs-pagination-disabled-color: var(--hue-text-3);
+  --bs-pagination-disabled-bg: var(--hue-surface);
+  --bs-pagination-disabled-border-color: var(--hue-border);
+}
+
+/* -- List group ----------------------------------------------------------------------------- */
+.list-group {
+  --bs-list-group-bg: var(--hue-surface);
+  --bs-list-group-color: var(--hue-text);
+  --bs-list-group-border-color: var(--hue-border);
+  --bs-list-group-action-hover-bg: var(--hue-hover);
+  --bs-list-group-action-hover-color: var(--hue-text);
+  --bs-list-group-action-active-bg: var(--hue-hover);
+  --bs-list-group-action-active-color: var(--hue-text);
+  --bs-list-group-active-bg: var(--hue-primary);
+  --bs-list-group-active-border-color: var(--hue-primary);
+  --bs-list-group-active-color: var(--hue-on-accent);
+}
+
+/* -- Modal / Offcanvas / Toast / Popover / Tooltip ----------------------------------------------- */
+.modal {
+  --bs-modal-bg: var(--hue-bg);
+  --bs-modal-border-color: var(--hue-border);
+  --bs-modal-header-border-color: var(--hue-border);
+  --bs-modal-footer-border-color: var(--hue-border);
+  --bs-modal-box-shadow: var(--hue-shadow-lg);
+}
+.offcanvas, .offcanvas-lg, .offcanvas-md, .offcanvas-sm, .offcanvas-xl, .offcanvas-xxl {
+  --bs-offcanvas-bg: var(--hue-bg);
+  --bs-offcanvas-border-color: var(--hue-border);
+}
+.toast {
+  --bs-toast-bg: var(--hue-widget);
+  --bs-toast-color: var(--hue-text);
+  --bs-toast-border-color: var(--hue-border);
+  --bs-toast-header-bg: var(--hue-widget);
+  --bs-toast-header-color: var(--hue-text-2);
+  --bs-toast-header-border-color: var(--hue-border);
+  box-shadow: var(--hue-shadow-md);
+}
+.popover {
+  --bs-popover-bg: var(--hue-widget);
+  --bs-popover-border-color: var(--hue-border);
+  --bs-popover-body-color: var(--hue-text);
+  --bs-popover-header-bg: var(--hue-widget);
+  --bs-popover-header-color: var(--hue-text);
+}
+.tooltip {
+  --bs-tooltip-bg: #2e2b27;
+  --bs-tooltip-color: #ede7dc;
+}
+[data-bs-theme="dark"] .tooltip {
+  --bs-tooltip-bg: #d7d0c5;
+  --bs-tooltip-color: #262320;
+}
+
+/* -- Progress / Spinner --------------------------------------------------------------------------- */
+.progress {
+  --bs-progress-bg: var(--hue-hover);
+  --bs-progress-bar-bg: var(--hue-primary);
+  --bs-progress-bar-color: var(--hue-on-accent);
+}
+.spinner-border, .spinner-grow {
+  color: var(--hue-primary-emphasis);
+}
+
+/* -- Accordion --------------------------------------------------------------------------------------- */
+.accordion {
+  --bs-accordion-bg: var(--hue-surface);
+  --bs-accordion-color: var(--hue-text);
+  --bs-accordion-border-color: var(--hue-border);
+  --bs-accordion-btn-color: var(--hue-text);
+  --bs-accordion-btn-bg: var(--hue-surface);
+  --bs-accordion-active-color: var(--hue-primary-emphasis);
+  --bs-accordion-active-bg: var(--hue-primary-subtle);
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem var(--hue-focus-ring);
+}
+
+/* -- Breadcrumb ---------------------------------------------------------------------------------------- */
+.breadcrumb {
+  --bs-breadcrumb-divider-color: var(--hue-text-3);
+  --bs-breadcrumb-item-active-color: var(--hue-text-2);
+}
+
+/* -- Badges (via .text-bg-* which use the remapped --bs-*-rgb) ------------------------------------------- */
+.badge {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.text-bg-primary { color: var(--hue-on-accent) !important; }
+.text-bg-success, .text-bg-danger, .text-bg-warning, .text-bg-info {
+  color: var(--hue-on-semantic) !important;
+}
+.text-bg-secondary { color: var(--hue-on-accent) !important; }
+[data-bs-theme="dark"] .text-bg-secondary { color: var(--hue-bg) !important; }
+.text-bg-light { color: var(--hue-text) !important; }
+.text-bg-dark { color: #ede7dc !important; }
+
+/* soft badges — preferred for tables/status (MorningHue chip style) */
+.badge-soft-primary { background: var(--hue-primary-subtle); color: var(--hue-primary-emphasis); }
+.badge-soft-success { background: var(--hue-success-subtle); color: var(--hue-success); }
+.badge-soft-warning { background: var(--hue-warning-subtle); color: var(--hue-warning); }
+.badge-soft-danger  { background: var(--hue-danger-subtle);  color: var(--hue-danger); }
+.badge-soft-info    { background: var(--hue-info-subtle);    color: var(--hue-info); }
+.badge-soft-neutral { background: var(--hue-hover); color: var(--hue-text-2); }
+
+/* -- Alerts (5.3 alerts read the remapped *-bg-subtle / *-text-emphasis vars) ------------------------------ */
+.alert {
+  --bs-alert-border-radius: 8px;
+}
+
+/* -- Close button, hr, misc ---------------------------------------------------------------------------------- */
+[data-bs-theme="dark"] .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+hr {
+  border-color: var(--hue-border);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   6. HUE EXTRA COMPONENTS (beyond Bootstrap)
+   ========================================================================== */
+
+/* overline section label */
+.hue-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--hue-text-2);
+  margin-bottom: 0.375rem;
+}
+
+/* KPI stat block */
+.hue-stat .hue-stat-num {
+  display: block;
+  font-family: var(--hue-font-display);
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--hue-text);
+  font-variant-numeric: tabular-nums;
+}
+.hue-stat .hue-stat-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--hue-text-2);
+  margin-top: 0.25rem;
+}
+.hue-stat-num.text-success { color: var(--hue-success) !important; }
+.hue-stat-num.text-danger  { color: var(--hue-danger) !important; }
+
+/* log / terminal panel */
+.hue-log {
+  font-family: var(--hue-font-mono);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  background: var(--hue-surface);
+  border: 1px solid var(--hue-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  white-space: pre-wrap;
+}
+.hue-log span { display: inline; }
+.hue-log .hue-log-dim     { color: var(--hue-text-3); }
+.hue-log .hue-log-info    { color: var(--hue-accent-2); }
+.hue-log .hue-log-success { color: var(--hue-success); }
+.hue-log .hue-log-warn    { color: var(--hue-warning); }
+.hue-log .hue-log-error   { color: var(--hue-danger); }
+
+/* status dot */
+.hue-status { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8125rem; }
+.hue-status::before {
+  content: "";
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--hue-text-3);
+}
+.hue-status-ok::before      { background: var(--hue-success); }
+.hue-status-warn::before    { background: var(--hue-warning); }
+.hue-status-error::before   { background: var(--hue-danger); }
+
+/* money semantics for finance apps */
+.hue-amount-pos { color: var(--hue-success); font-variant-numeric: tabular-nums; }
+.hue-amount-neg { color: var(--hue-danger);  font-variant-numeric: tabular-nums; }
+
+/* theme toggle button (used by hue-theme.js markup) */
+.hue-theme-toggle {
+  background: transparent;
+  border: 1px solid var(--hue-border);
+  border-radius: 8px;
+  color: var(--hue-text-2);
+  padding: 4px 10px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.hue-theme-toggle:hover {
+  background: var(--hue-hover);
+  color: var(--hue-text);
+}

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hue-design-system — component gallery</title>
+<script>
+  (function(){var s=localStorage.getItem("hue-theme"),d=matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.setAttribute("data-bs-theme",(s==="light"||s==="dark")?s:(d?"dark":"light"));})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:wght@300;400;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/hue.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top" style="background: var(--hue-surface)">
+  <div class="container">
+    <a class="navbar-brand" href="#">hue-design-system</a>
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item"><a class="nav-link active" href="#">Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Transactions</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Reports</a></li>
+    </ul>
+    <button class="hue-theme-toggle" data-hue-toggle></button>
+  </div>
+</nav>
+
+<main class="container py-4">
+
+  <p class="hue-label">Gallery</p>
+  <h1 class="mb-1">MorningHue &amp; EveningHue for Bootstrap 5.3</h1>
+  <p class="text-secondary mb-4">Every component below is stock Bootstrap markup — no custom classes except the <code>hue-*</code> extras. Toggle the theme (top right) to switch palettes.</p>
+
+  <!-- KPI stats -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3"><div class="card p-3 hue-stat">
+      <span class="hue-stat-num">₹4.2L</span><span class="hue-stat-label">Net worth</span>
+    </div></div>
+    <div class="col-6 col-md-3"><div class="card p-3 hue-stat">
+      <span class="hue-stat-num text-success">+12.4%</span><span class="hue-stat-label">XIRR (1Y)</span>
+    </div></div>
+    <div class="col-6 col-md-3"><div class="card p-3 hue-stat">
+      <span class="hue-stat-num text-danger">−₹8,420</span><span class="hue-stat-label">This month</span>
+    </div></div>
+    <div class="col-6 col-md-3"><div class="card p-3 hue-stat">
+      <span class="hue-stat-num">37</span><span class="hue-stat-label">Uncategorized</span>
+    </div></div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="card mb-4"><div class="card-body">
+    <p class="hue-label">Buttons</p>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-success">Success</button>
+      <button class="btn btn-danger">Danger</button>
+      <button class="btn btn-warning">Warning</button>
+      <button class="btn btn-info">Info</button>
+      <button class="btn btn-light">Light</button>
+      <button class="btn btn-dark">Dark</button>
+      <button class="btn btn-link">Link</button>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn btn-outline-primary">Primary</button>
+      <button class="btn btn-outline-secondary">Secondary</button>
+      <button class="btn btn-outline-success">Success</button>
+      <button class="btn btn-outline-danger">Danger</button>
+      <button class="btn btn-outline-warning">Warning</button>
+      <button class="btn btn-outline-info">Info</button>
+      <button class="btn btn-sm btn-primary">Small</button>
+      <button class="btn btn-lg btn-primary">Large</button>
+      <button class="btn btn-primary" disabled>Disabled</button>
+    </div>
+  </div></div>
+
+  <!-- Badges + status -->
+  <div class="card mb-4"><div class="card-body">
+    <p class="hue-label">Badges &amp; status</p>
+    <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+      <span class="badge text-bg-primary">Primary</span>
+      <span class="badge text-bg-secondary">Secondary</span>
+      <span class="badge text-bg-success">Success</span>
+      <span class="badge text-bg-danger">Danger</span>
+      <span class="badge text-bg-warning">Warning</span>
+      <span class="badge text-bg-info">Info</span>
+    </div>
+    <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+      <span class="badge badge-soft-primary">Soft primary</span>
+      <span class="badge badge-soft-success">Reconciled</span>
+      <span class="badge badge-soft-warning">Pending</span>
+      <span class="badge badge-soft-danger">Failed</span>
+      <span class="badge badge-soft-info">Imported</span>
+      <span class="badge badge-soft-neutral">Skipped</span>
+    </div>
+    <div class="d-flex flex-wrap gap-4">
+      <span class="hue-status hue-status-ok">Connected</span>
+      <span class="hue-status hue-status-warn">Degraded</span>
+      <span class="hue-status hue-status-error">Offline</span>
+      <span class="hue-status">Unknown</span>
+    </div>
+  </div></div>
+
+  <!-- Alerts -->
+  <div class="card mb-4"><div class="card-body">
+    <p class="hue-label">Alerts</p>
+    <div class="alert alert-success mb-2">Statement imported: 214 transactions, 0 duplicates.</div>
+    <div class="alert alert-warning mb-2">3 holdings are missing purchase prices.</div>
+    <div class="alert alert-danger mb-2">Failed to fetch NAV — API timeout.</div>
+    <div class="alert alert-info mb-0">A restore point was created before this import.</div>
+  </div></div>
+
+  <div class="row g-4 mb-4">
+    <!-- Form -->
+    <div class="col-md-6"><div class="card h-100"><div class="card-body">
+      <p class="hue-label">Forms</p>
+      <div class="mb-3">
+        <label class="form-label">Account</label>
+        <select class="form-select"><option>SBI SimplyCLICK</option><option>HDFC Infinia</option></select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Amount</label>
+        <div class="input-group">
+          <span class="input-group-text">₹</span>
+          <input type="number" class="form-control" placeholder="0.00">
+        </div>
+        <div class="form-text">Positive for credit, negative for debit.</div>
+      </div>
+      <div class="form-check mb-1">
+        <input class="form-check-input" type="checkbox" id="c1" checked><label class="form-check-label" for="c1">Mark as reconciled</label>
+      </div>
+      <div class="form-check form-switch mb-3">
+        <input class="form-check-input" type="checkbox" id="s1" checked><label class="form-check-label" for="s1">Auto-categorize</label>
+      </div>
+      <button class="btn btn-primary">Save</button>
+      <button class="btn btn-secondary">Cancel</button>
+    </div></div></div>
+
+    <!-- Table -->
+    <div class="col-md-6"><div class="card h-100"><div class="card-body">
+      <p class="hue-label">Table</p>
+      <table class="table table-hover align-middle mb-0">
+        <thead><tr><th>Date</th><th>Description</th><th class="text-end">Amount</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Jul 12</td><td>Swiggy</td><td class="text-end hue-amount-neg">−482.00</td><td><span class="badge badge-soft-success">Done</span></td></tr>
+          <tr><td>Jul 11</td><td>Salary</td><td class="text-end hue-amount-pos">+1,20,000.00</td><td><span class="badge badge-soft-success">Done</span></td></tr>
+          <tr><td>Jul 10</td><td>Amazon</td><td class="text-end hue-amount-neg">−2,199.00</td><td><span class="badge badge-soft-warning">Pending</span></td></tr>
+          <tr><td>Jul 09</td><td>SIP — Parag Parikh</td><td class="text-end hue-amount-neg">−25,000.00</td><td><span class="badge badge-soft-info">Invested</span></td></tr>
+        </tbody>
+      </table>
+    </div></div></div>
+  </div>
+
+  <!-- Tabs / pagination / progress -->
+  <div class="card mb-4"><div class="card-body">
+    <p class="hue-label">Navigation</p>
+    <ul class="nav nav-tabs mb-3">
+      <li class="nav-item"><a class="nav-link active" href="#">Overview</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Holdings</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">History</a></li>
+    </ul>
+    <ul class="nav nav-pills mb-3">
+      <li class="nav-item"><a class="nav-link active" href="#">1M</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">6M</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">1Y</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">All</a></li>
+    </ul>
+    <nav><ul class="pagination mb-3">
+      <li class="page-item disabled"><span class="page-link">‹</span></li>
+      <li class="page-item active"><span class="page-link">1</span></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">›</a></li>
+    </ul></nav>
+    <div class="progress" style="height: 8px"><div class="progress-bar" style="width: 64%"></div></div>
+  </div></div>
+
+  <!-- Chart palette + log -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-6"><div class="card h-100"><div class="card-body">
+      <p class="hue-label">Chart palette (--hue-chart-1…8)</p>
+      <div class="d-flex gap-2 mb-3" id="swatches"></div>
+      <p class="text-secondary mb-0" style="font-size:.8125rem">In JS: <code>HueTheme.chartColors()</code> returns these for the active theme; re-read on the <code>hue-theme-change</code> event.</p>
+    </div></div></div>
+    <div class="col-md-6"><div class="card h-100"><div class="card-body">
+      <p class="hue-label">Log panel</p>
+      <div class="hue-log">
+<span class="hue-log-dim">12:34:01</span>  <span class="hue-log-info">Parsing SBI_CC statement…</span>
+<span class="hue-log-dim">12:34:02</span>  <span class="hue-log-success">214 rows imported</span>
+<span class="hue-log-dim">12:34:03</span>  <span class="hue-log-warn">2 rows skipped (duplicate)</span>
+<span class="hue-log-dim">12:34:04</span>  <span class="hue-log-error">1 row failed: bad date format</span></div>
+    </div></div></div>
+  </div>
+
+  <!-- Modal + dropdown + toast triggers -->
+  <div class="card mb-5"><div class="card-body d-flex flex-wrap gap-2 align-items-center">
+    <p class="hue-label w-100">Overlays</p>
+    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#demoModal">Open modal</button>
+    <div class="dropdown">
+      <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">Dropdown</button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item active" href="#">Edit</a></li>
+        <li><a class="dropdown-item" href="#">Duplicate</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+      </ul>
+    </div>
+    <button class="btn btn-outline-secondary" data-bs-toggle="tooltip" title="A themed tooltip">Tooltip</button>
+  </div></div>
+
+</main>
+
+<div class="modal fade" id="demoModal" tabindex="-1">
+  <div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title">Confirm import</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body">Import 214 transactions into <strong>SBI SimplyCLICK</strong>? A restore point will be created first.</div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary" data-bs-dismiss="modal">Import</button>
+    </div>
+  </div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/hue-theme.js"></script>
+<script>
+  function drawSwatches() {
+    var el = document.getElementById("swatches");
+    el.innerHTML = "";
+    HueTheme.chartColors().forEach(function (c) {
+      var d = document.createElement("div");
+      d.style.cssText = "width:36px;height:36px;border-radius:8px;background:" + c;
+      d.title = c;
+      el.appendChild(d);
+    });
+  }
+  drawSwatches();
+  document.addEventListener("hue-theme-change", drawSwatches);
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+    new bootstrap.Tooltip(el);
+  });
+</script>
+</body>
+</html>
