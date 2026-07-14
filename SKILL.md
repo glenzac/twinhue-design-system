@@ -34,6 +34,11 @@ defaults; deviate only if the user explicitly asks.
    A small tool simply has a short sidebar (brand + 1–2 links + theme toggle).
    The mobile toggle is built in (`data-hue-sidebar-toggle` + hue-theme.js) —
    never write sidebar JS in an app.
+   **Exception — pre-auth pages** (login/register/forgot): no app chrome at
+   all. Guard the whole shell with `{% if current_user.is_authenticated %}`
+   and render `<main class="hue-auth">{{ self.content() }}</main>` plus
+   `<button class="hue-theme-toggle hue-auth-toggle" data-hue-toggle>` in the
+   else-branch. An empty sidebar on a login page is a bug.
 2. **No private token layers.** Apps must not define their own `--space-*`,
    `--radius-*`, `--text-*`, `--color-*`, `--shadow-*`, or alias variables.
    Use `--hue-space-1…12`, `--hue-radius-sm/md/lg/pill`, `--hue-shadow-*`
@@ -213,6 +218,7 @@ Structure (mode-independent): `--hue-space-1…12` (4→48px), `--hue-radius-sm/
   section-title/menu/link/footer) / `.hue-sidebar-overlay` / `.hue-main` /
   `.hue-topbar` / `.hue-content` / `.hue-footer` — see `docs/shell.html`
 - `.hue-page-header` + `.hue-page-actions` — title-left/buttons-right page top
+- `.hue-auth` + `.hue-auth-toggle` — chrome-less centered layout for pre-auth pages
 - `.hue-stat` (on `.card-body`) + `.hue-stat-label`/`.hue-stat-num`/`.hue-stat-sub` — KPI cards
 - `.badge badge-soft-{primary,success,warning,danger,info,neutral}` — preferred
   chip style for table statuses (quieter than solid `text-bg-*`)

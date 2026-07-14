@@ -1,5 +1,5 @@
 /*!
- * twinhue-design-system v1.1.2 (2026-07-14)
+ * twinhue-design-system v1.1.3 (2026-07-14)
  * MorningHue (light) + EveningHue (dark) for Bootstrap 5.3+
  * Load AFTER bootstrap.min.css. Dark mode via <html data-bs-theme="dark">.
  * Source of truth: ~/scripts/twinhue-design-system — do not hand-edit app copies.
@@ -1135,6 +1135,25 @@ hr {
   inset: 0;
   background: var(--hue-overlay);
   z-index: 1035;
+}
+
+/* -- Auth pages (login/register/forgot): NO shell -------------------------
+   Pre-auth pages must not show app chrome — an empty sidebar leaks the app's
+   structure and looks broken. Render `.hue-auth` INSTEAD of `.hue-shell`
+   (guard the shell with `{% if current_user.is_authenticated %}`); the page
+   content centers itself, plus a floating theme toggle. ------------------- */
+.hue-auth {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--hue-space-6);
+}
+.hue-auth-toggle {
+  position: fixed;
+  top: var(--hue-space-4);
+  right: var(--hue-space-4);
+  z-index: 10;
 }
 
 @media (max-width: 991.98px) {
