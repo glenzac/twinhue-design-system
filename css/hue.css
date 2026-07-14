@@ -1,5 +1,5 @@
 /*!
- * twinhue-design-system v1.1.1 (2026-07-14)
+ * twinhue-design-system v1.1.2 (2026-07-14)
  * MorningHue (light) + EveningHue (dark) for Bootstrap 5.3+
  * Load AFTER bootstrap.min.css. Dark mode via <html data-bs-theme="dark">.
  * Source of truth: ~/scripts/twinhue-design-system — do not hand-edit app copies.
@@ -775,6 +775,55 @@ code, kbd, pre, samp {
 /* -- Alerts (5.3 alerts read the remapped *-bg-subtle / *-text-emphasis vars) ------------------------------ */
 .alert {
   --bs-alert-border-radius: 8px;
+}
+
+/* -- Legacy colored card headers → soft tints (both modes) -------------------
+   Solid `card-header bg-*` (usually with text-white) is a stock-Bootstrap
+   idiom that reads as off-brand and often unreadable after re-theming.
+   Normalize every variant to the quiet tinted header. ----------------------- */
+.card-header.bg-primary {
+  background-color: var(--hue-primary-subtle) !important;
+  color: var(--hue-primary-emphasis) !important;
+}
+.card-header.bg-success {
+  background-color: var(--hue-success-subtle) !important;
+  color: var(--hue-success) !important;
+}
+.card-header.bg-danger {
+  background-color: var(--hue-danger-subtle) !important;
+  color: var(--hue-danger) !important;
+}
+.card-header.bg-warning {
+  background-color: var(--hue-warning-subtle) !important;
+  color: var(--hue-warning) !important;
+}
+.card-header.bg-info {
+  background-color: var(--hue-info-subtle) !important;
+  color: var(--hue-info) !important;
+}
+.card-header.bg-secondary,
+.card-header.bg-dark {
+  background-color: var(--hue-hover) !important;
+  color: var(--hue-text-2) !important;
+}
+.card-header.bg-primary h1, .card-header.bg-primary h2, .card-header.bg-primary h3,
+.card-header.bg-primary h4, .card-header.bg-primary h5, .card-header.bg-primary h6,
+.card-header.bg-success h1, .card-header.bg-success h2, .card-header.bg-success h3,
+.card-header.bg-success h4, .card-header.bg-success h5, .card-header.bg-success h6,
+.card-header.bg-danger h1, .card-header.bg-danger h2, .card-header.bg-danger h3,
+.card-header.bg-danger h4, .card-header.bg-danger h5, .card-header.bg-danger h6,
+.card-header.bg-warning h1, .card-header.bg-warning h2, .card-header.bg-warning h3,
+.card-header.bg-warning h4, .card-header.bg-warning h5, .card-header.bg-warning h6,
+.card-header.bg-info h1, .card-header.bg-info h2, .card-header.bg-info h3,
+.card-header.bg-info h4, .card-header.bg-info h5, .card-header.bg-info h6,
+.card-header.bg-secondary h1, .card-header.bg-secondary h2, .card-header.bg-secondary h3,
+.card-header.bg-secondary h4, .card-header.bg-secondary h5, .card-header.bg-secondary h6,
+.card-header.bg-dark h1, .card-header.bg-dark h2, .card-header.bg-dark h3,
+.card-header.bg-dark h4, .card-header.bg-dark h5, .card-header.bg-dark h6,
+.card-header[class*="bg-"] .mb-0,
+.card-header[class*="bg-"].text-white,
+.card-header[class*="bg-"].text-dark {
+  color: inherit !important;
 }
 
 /* -- Close button, hr, misc ---------------------------------------------------------------------------------- */
