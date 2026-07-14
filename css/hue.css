@@ -1,5 +1,5 @@
 /*!
- * twinhue-design-system v1.1.0 (2026-07-14)
+ * twinhue-design-system v1.1.1 (2026-07-14)
  * MorningHue (light) + EveningHue (dark) for Bootstrap 5.3+
  * Load AFTER bootstrap.min.css. Dark mode via <html data-bs-theme="dark">.
  * Source of truth: ~/scripts/twinhue-design-system — do not hand-edit app copies.
@@ -1051,10 +1051,18 @@ hr {
   margin-bottom: var(--hue-space-6);
 }
 .hue-page-header h1 {
-  font-size: 1.375rem;
-  font-weight: 600;
   margin: 0;
 }
+/* grounding rule 7: one h1 per page at page-title size — enforced for any
+   heading inside the shell, so legacy titles can't render at Bootstrap's
+   2.5rem and section headings never outrank the page title. Full compact
+   dashboard scale: h1 page title > h2/h3 sections > h5/h6 card headers. */
+.hue-content h1 { font-size: 1.375rem;  font-weight: 600; }
+.hue-content h2 { font-size: 1.125rem;  font-weight: 600; }
+.hue-content h3 { font-size: 1rem;      font-weight: 600; }
+.hue-content h4 { font-size: 0.9375rem; font-weight: 600; }
+.hue-content h5 { font-size: 0.875rem;  font-weight: 600; }
+.hue-content h6 { font-size: 0.8125rem; font-weight: 600; }
 .hue-page-header .hue-page-actions {
   display: flex;
   align-items: center;
