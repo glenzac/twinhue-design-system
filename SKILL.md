@@ -221,7 +221,9 @@ Structure (mode-independent): `--hue-space-1…12` (4→48px), `--hue-radius-sm/
 - `.hue-auth` + `.hue-auth-toggle` — chrome-less centered layout for pre-auth pages
 - `.hue-stat` (on `.card-body`) + `.hue-stat-label`/`.hue-stat-num`/`.hue-stat-sub` — KPI cards
 - `.badge badge-soft-{primary,success,warning,danger,info,neutral}` — preferred
-  chip style for table statuses (quieter than solid `text-bg-*`)
+  chip style for table statuses (quieter than solid `text-bg-*`). **Not** for a
+  badge sitting on a `*-subtle` tinted row — the backgrounds are the same
+  token and the chip vanishes. Use solid there.
 - `.hue-status hue-status-{ok,warn,error}` — status dot + label
 - `.hue-log` with `hue-log-{dim,info,success,warn,error}` spans — log panels
 - `.hue-label` — uppercase overline section label
@@ -244,3 +246,7 @@ Structure (mode-independent): `--hue-space-1…12` (4→48px), `--hue-radius-sm/
 - Never `data-bs-theme` set anywhere except by the head snippet + `hue-theme.js`.
 - Never edit `hue.css`/`hue-theme.js` inside an app — change the source repo,
   bump the version stamp, re-sync every app.
+- Never pair `bg-*` with `text-dark`/`text-white` — the fill utilities own
+  their text colour (`--hue-on-semantic` / `--hue-on-accent`). Use
+  `text-bg-*`, or just `bg-*` and let hue.css pair it. Stock Bootstrap's
+  pairing assumes stock Bootstrap's palette, which we replace.

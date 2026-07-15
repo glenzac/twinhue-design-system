@@ -1,5 +1,5 @@
 /*!
- * twinhue-design-system v1.1.3 (2026-07-14)
+ * twinhue-design-system v1.1.4 (2026-07-15)
  * MorningHue (light) + EveningHue (dark) for Bootstrap 5.3+
  * Load AFTER bootstrap.min.css. Dark mode via <html data-bs-theme="dark">.
  * Source of truth: ~/scripts/twinhue-design-system — do not hand-edit app copies.
@@ -763,6 +763,34 @@ code, kbd, pre, samp {
 [data-bs-theme="dark"] .text-bg-secondary { color: var(--hue-bg) !important; }
 .text-bg-light { color: var(--hue-text) !important; }
 .text-bg-dark { color: #ede7dc !important; }
+
+/* -- Solid `bg-*` fills: own the text pairing --------------------------------
+   `bg-*` is background-only in Bootstrap; its default/author-supplied text
+   colour assumes stock Bootstrap's palette. Our tokens flip lightness between
+   modes, so that pairing fails in one mode or the other. Pairing is TwinHue's
+   job — take it over, and override stale `.text-dark`/`.text-white` too.
+   (Same reasoning as the .card-header[class*="bg-"] block below.) ----------- */
+.badge.bg-primary   { color: var(--hue-on-accent) !important; }
+.badge.bg-secondary { color: var(--hue-on-accent) !important; }
+[data-bs-theme="dark"] .badge.bg-secondary { color: var(--hue-bg) !important; }
+.badge.bg-success,
+.badge.bg-danger,
+.badge.bg-warning,
+.badge.bg-info      { color: var(--hue-on-semantic) !important; }
+.badge.bg-light     { color: var(--hue-text) !important; }
+.badge.bg-dark      { color: #ede7dc !important; }
+
+/* modal-header: same normalisation the card-header block already does */
+.modal-header.bg-primary { background-color: var(--hue-primary-subtle) !important; color: var(--hue-primary-emphasis) !important; }
+.modal-header.bg-success { background-color: var(--hue-success-subtle) !important; color: var(--hue-success) !important; }
+.modal-header.bg-danger  { background-color: var(--hue-danger-subtle)  !important; color: var(--hue-danger)  !important; }
+.modal-header.bg-warning { background-color: var(--hue-warning-subtle) !important; color: var(--hue-warning) !important; }
+.modal-header.bg-info    { background-color: var(--hue-info-subtle)    !important; color: var(--hue-info)    !important; }
+.modal-header.bg-secondary,
+.modal-header.bg-dark    { background-color: var(--hue-hover) !important; color: var(--hue-text-2) !important; }
+.modal-header[class*="bg-"] .modal-title,
+.modal-header[class*="bg-"].text-white,
+.modal-header[class*="bg-"].text-dark { color: inherit !important; }
 
 /* soft badges — preferred for tables/status (MorningHue chip style) */
 .badge-soft-primary { background: var(--hue-primary-subtle); color: var(--hue-primary-emphasis); }
