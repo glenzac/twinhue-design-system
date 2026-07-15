@@ -1,5 +1,5 @@
 /*!
- * twinhue-design-system v1.1.4 (2026-07-15)
+ * twinhue-design-system v1.1.5 (2026-07-15)
  * MorningHue (light) + EveningHue (dark) for Bootstrap 5.3+
  * Load AFTER bootstrap.min.css. Dark mode via <html data-bs-theme="dark">.
  * Source of truth: ~/scripts/twinhue-design-system — do not hand-edit app copies.
@@ -16,12 +16,17 @@
 
   /* -- Hue palette ------------------------------------------------------- */
   --hue-bg: #f1ede5;            /* page background */
+  --hue-bg-rgb: 241, 237, 229;
   --hue-surface: #e8e4dc;       /* card, panel, sidebar */
+  --hue-surface-rgb: 232, 228, 220;
   --hue-hover: #e4ded6;         /* hover state, active row */
+  --hue-hover-rgb: 228, 222, 214;
   --hue-widget: #e4e4e4;        /* popup, tooltip, modal */
   --hue-border: #d0d0d0;        /* border, divider */
   --hue-text: #444444;          /* body text — 8.34:1 AAA */
+  --hue-text-rgb: 68, 68, 68;
   --hue-text-2: #6b6560;        /* secondary text — 4.52:1 AA */
+  --hue-text-2-rgb: 107, 101, 96;
   --hue-text-3: #949494;        /* DECORATIVE ONLY — fails WCAG */
   --hue-on-accent: #eeeeee;     /* text on accent/dark backgrounds */
 
@@ -32,7 +37,9 @@
   --hue-primary-subtle: #d0eaea;
   --hue-primary-emphasis: #005f5f; /* primary as TEXT on bg/surface */
   --hue-link: #005f5f;
+  --hue-link-rgb: 0, 95, 95;
   --hue-link-hover: #004f4f;
+  --hue-link-hover-rgb: 0, 79, 79;
   --hue-accent-2: #005f87;      /* Dark Teal — secondary accent, 6.02:1 AA */
   --hue-focus-ring: rgba(0, 95, 95, 0.25);
   --hue-selection: #afd7ff;
@@ -84,12 +91,17 @@
   color-scheme: dark;
 
   --hue-bg: #262320;            /* warm dark charcoal */
+  --hue-bg-rgb: 38, 35, 32;
   --hue-surface: #2e2b27;
+  --hue-surface-rgb: 46, 43, 39;
   --hue-hover: #33302b;
+  --hue-hover-rgb: 51, 48, 43;
   --hue-widget: #3a362f;
   --hue-border: #3a362f;
   --hue-text: #d7d0c5;          /* 10.21:1 AAA */
+  --hue-text-rgb: 215, 208, 197;
   --hue-text-2: #a39c90;        /* 5.74:1 AA — web-only token */
+  --hue-text-2-rgb: 163, 156, 144;
   --hue-text-3: #5c564e;        /* DECORATIVE ONLY — fails WCAG */
   --hue-on-accent: #ede7dc;
 
@@ -100,7 +112,9 @@
   --hue-primary-subtle: #1f3145;
   --hue-primary-emphasis: #93b2e0; /* #005faf is a fill, not a text color on dark */
   --hue-link: #93b2e0;          /* Steel Blue — 7.21:1 AAA */
+  --hue-link-rgb: 147, 178, 224;
   --hue-link-hover: #a9c4e9;
+  --hue-link-hover-rgb: 169, 196, 233;
   --hue-accent-2: #8fb3f2;      /* Soft Blue */
   --hue-focus-ring: rgba(147, 178, 224, 0.35);
   --hue-selection: #3a4d68;
@@ -149,19 +163,28 @@
 [data-bs-theme="dark"] {
   /* body & text */
   --bs-body-bg: var(--hue-bg);
+  --bs-body-bg-rgb: var(--hue-bg-rgb);
   --bs-body-color: var(--hue-text);
+  --bs-body-color-rgb: var(--hue-text-rgb);
   --bs-emphasis-color: var(--hue-text);
+  --bs-emphasis-color-rgb: var(--hue-text-rgb);   /* table stripes, navbar link opacity */
   --bs-secondary-color: var(--hue-text-2);      /* .text-secondary, muted text */
+  --bs-secondary-color-rgb: var(--hue-text-2-rgb);
   --bs-secondary-bg: var(--hue-surface);        /* .bg-secondary-subtle contexts */
+  --bs-secondary-bg-rgb: var(--hue-surface-rgb);  /* .bg-body-secondary */
   --bs-tertiary-color: var(--hue-text-2);
+  --bs-tertiary-color-rgb: var(--hue-text-2-rgb);
   --bs-tertiary-bg: var(--hue-hover);
+  --bs-tertiary-bg-rgb: var(--hue-hover-rgb);     /* .bg-body-tertiary */
   --bs-heading-color: var(--hue-text);
   --bs-border-color: var(--hue-border);
   --bs-border-color-translucent: var(--hue-border);
 
   /* links */
   --bs-link-color: var(--hue-link);
+  --bs-link-color-rgb: var(--hue-link-rgb);
   --bs-link-hover-color: var(--hue-link-hover);
+  --bs-link-hover-color-rgb: var(--hue-link-hover-rgb);
   --bs-code-color: var(--hue-accent-2);
   --bs-highlight-bg: var(--hue-selection);
 
@@ -172,6 +195,7 @@
   --bs-primary-bg-subtle: var(--hue-primary-subtle);
   --bs-primary-border-subtle: color-mix(in srgb, var(--hue-primary) 40%, var(--hue-bg));
   --bs-secondary: var(--hue-text-2);
+  --bs-secondary-rgb: var(--hue-text-2-rgb);
   --bs-secondary-text-emphasis: var(--hue-text-2);
   --bs-secondary-bg-subtle: var(--hue-hover);
   --bs-secondary-border-subtle: var(--hue-border);
@@ -237,23 +261,14 @@
   --hue-content-pad: var(--hue-space-6);
 }
 
-/* dark-mode rgb variants that differ from light */
+/* dark-mode --bs-light/--bs-dark differ from their light-mode values above and
+   have no dedicated --hue-* token (light: widget tint; dark: near-black) —
+   the rest of the -rgb bridge is driven by var(--hue-*-rgb) already. */
 [data-bs-theme="dark"] {
-  --bs-body-bg-rgb: 38, 35, 32;
-  --bs-body-color-rgb: 215, 208, 197;
-  --bs-link-color-rgb: 147, 178, 224;
-  --bs-link-hover-color-rgb: 169, 196, 233;
   --bs-light: #3a362f;
   --bs-light-rgb: 58, 54, 47;
   --bs-dark: #211e1b;
   --bs-dark-rgb: 33, 30, 27;
-}
-[data-bs-theme="light"],
-:root {
-  --bs-body-bg-rgb: 241, 237, 229;
-  --bs-body-color-rgb: 68, 68, 68;
-  --bs-link-color-rgb: 0, 95, 95;
-  --bs-link-hover-color-rgb: 0, 79, 79;
 }
 
 /* ==========================================================================
